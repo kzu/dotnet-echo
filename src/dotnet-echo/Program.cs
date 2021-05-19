@@ -100,10 +100,8 @@ static async Task EchoAsync(string[] prefix, CancellationToken cancellation)
 
                 context.Response.Close();
             }
-            catch (HttpListenerException e) when (e.ErrorCode == 995)
-            {
-                // token was cancelled
-            }
+            catch (HttpListenerException e) when (e.ErrorCode == 995) { }
+            catch (ObjectDisposedException) { }
         }
     });
 }
