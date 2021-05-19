@@ -1,17 +1,16 @@
-# dotnet-echo
+![Icon](assets/img/icon-32.png) dotnet-config
+============
 
-This is a trivial HTTP listener program that just echoes whatever is sent to it.
+[![Version](https://img.shields.io/nuget/v/dotnet-echo.svg?color=royalblue)](https://www.nuget.org/packages/dotnet-echo)
+[![Downloads](https://img.shields.io/nuget/dt/dotnet-echo.svg?color=darkmagenta)](https://www.nuget.org/packages/dotnet-echo)
+[![License](https://img.shields.io/github/license/kzu/dotnet-echo.svg?color=blue)](https://github.com/kzu/dotnet-echo/blob/main/LICENSE)
+[![CI Status](https://github.com/kzu/dotnet-file/workflows/build/badge.svg?branch=main)](https://github.com/kzu/dotnet-file/actions?query=branch%3Amain+workflow%3Abuild+)
+[![CI Version](https://img.shields.io/endpoint?url=https://shields.kzu.io/vpre/dotnet-echo/main&label=nuget.ci&color=brightgreen)](https://pkg.kzu.io/index.json)
 
-Install:
+Installing or updating (same command can be used for both):
 
 ```
-> dotnet tool install -g dotnet-echo
-```
-
-Update:
-
-```
-> dotnet tool update -g dotnet-echo
+dotnet tool update -g dotnet-echo
 ```
 
 Usage:
@@ -35,4 +34,4 @@ if there is a new version available.
 
 An example of the output during execution:
 
-![](echo.gif)
+![](assets/img/echo.gif)
