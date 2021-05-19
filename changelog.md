@@ -1,5 +1,13 @@
 
 
+## [v0.3.0](https://github.com/kzu/dotnet-echo/tree/v0.3.0) (2021-05-19)
+
+[Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.2.0...v0.3.0)
+
+:sparkles: Implemented enhancements:
+
+- Use a higher port number by default [\#2](https://github.com/kzu/dotnet-echo/issues/2)
+
 ## [v0.2.0](https://github.com/kzu/dotnet-echo/tree/v0.2.0) (2021-05-19)
 
 [Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.1.0...v0.2.0)
