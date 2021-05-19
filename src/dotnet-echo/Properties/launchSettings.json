@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "dotnet-echo": {
+      "commandName": "Project",
+      "commandLineArgs": "-?"
+    }
+  }
+}

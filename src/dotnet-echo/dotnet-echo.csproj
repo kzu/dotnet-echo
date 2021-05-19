@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>echo</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <RootNamespace>DotNet</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <PackageId>dotnet-echo</PackageId>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>dotnet-echo</ToolCommandName>
+    <Description>A trivial program that echoes whatever is sent to it via HTTP.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetConfig.CommandLine" Version="1.0.3" />
+    <PackageReference Include="ThisAssembly" Version="1.0.8" />
+    <PackageReference Include="NuGet.Protocol" Version="5.9.1" />
+    <PackageReference Include="Spectre.Console" Version="0.39.0" />
+    <PackageReference Include="Humanizer.Core" Version="2.10.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectProperty Include="CI" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Program.Updates.cs" DependentUpon="Program.cs" />
+  </ItemGroup>
+
+</Project>
