@@ -32,3 +32,7 @@ Options:
 
 The program will automatically check for updates once a day and recommend updating 
 if there is a new version available.
+
+An example of the output during execution:
+
+![](echo.gif)

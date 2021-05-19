@@ -2,7 +2,7 @@
   "profiles": {
     "dotnet-echo": {
       "commandName": "Project",
-      "commandLineArgs": "-?"
+      "commandLineArgs": "echo"
     }
   }
 }
