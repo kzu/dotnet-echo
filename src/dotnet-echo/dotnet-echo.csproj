@@ -12,6 +12,7 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>dotnet-echo</ToolCommandName>
     <Description>A trivial program that echoes whatever is sent to it via HTTP.</Description>
+    <PackageProjectUrl>https://www.cazzulino.com/dotnet-echo</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
