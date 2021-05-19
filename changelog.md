@@ -1,5 +1,13 @@
 
 
+## [v0.2.0](https://github.com/kzu/dotnet-echo/tree/v0.2.0) (2021-05-19)
+
+[Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.1.0...v0.2.0)
+
+:bug: Fixed bugs:
+
+- Cannot ship this without an icon [\#1](https://github.com/kzu/dotnet-echo/issues/1)
+
 ## [v0.1.0](https://github.com/kzu/dotnet-echo/tree/v0.1.0) (2021-05-19)
 
 [Full Changelog](https://github.com/kzu/dotnet-echo/compare/d253496297efac3ee7572831fe8587f87fd629d3...v0.1.0)
