@@ -1,4 +1,4 @@
-![Icon](assets/img/icon-32.png) dotnet-config
+![Icon](assets/img/icon-32.png) dotnet-echo
 ============
 
 [![Version](https://img.shields.io/nuget/v/dotnet-echo.svg?color=royalblue)](https://www.nuget.org/packages/dotnet-echo)
