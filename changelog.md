@@ -1,5 +1,13 @@
 
 
+## [v0.4.2](https://github.com/kzu/dotnet-echo/tree/v0.4.2) (2021-05-19)
+
+[Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.4.1...v0.4.2)
+
+:bug: Fixed bugs:
+
+- If only .NET5 SDK is installed, tool fails to run [\#5](https://github.com/kzu/dotnet-echo/issues/5)
+
 ## [v0.4.1](https://github.com/kzu/dotnet-echo/tree/v0.4.1) (2021-05-19)
 
 [Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.4.0...v0.4.1)
