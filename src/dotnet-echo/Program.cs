@@ -55,6 +55,9 @@ static async Task EchoAsync(string[] prefix, CancellationToken cancellation)
     try
     {
         http.Start();
+        AnsiConsole.WriteLine("Registered prefixes to listen on:");
+        foreach (var p in prefix)
+            AnsiConsole.WriteLine("    " + p);
     }
     catch (HttpListenerException ex) when (ex.ErrorCode == 5 && Environment.OSVersion.Platform == PlatformID.Win32NT)
     {
