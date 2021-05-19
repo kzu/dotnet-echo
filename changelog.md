@@ -1,5 +1,14 @@
 
 
+## [v0.4.0](https://github.com/kzu/dotnet-echo/tree/v0.4.0) (2021-05-19)
+
+[Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.3.0...v0.4.0)
+
+:bug: Fixed bugs:
+
+- List the registered listening prefixes when starting [\#4](https://github.com/kzu/dotnet-echo/issues/4)
+- Source repository information is not published [\#3](https://github.com/kzu/dotnet-echo/issues/3)
+
 ## [v0.3.0](https://github.com/kzu/dotnet-echo/tree/v0.3.0) (2021-05-19)
 
 [Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.2.0...v0.3.0)
