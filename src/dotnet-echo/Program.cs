@@ -31,7 +31,7 @@ if (ThisAssembly.Project.CI.Equals("true", StringComparison.OrdinalIgnoreCase) &
 
 var command = new RootCommand("A trivial program that echoes whatever is sent to it via HTTP.")
 {
-    new Option<string[]>(new[] { "--prefix", "-p" }, () => new [] { "http://*:80/" }, "Prefix to listen on such as http://127.0.0.0:80/")
+    new Option<string[]>(new[] { "--prefix", "-p" }, () => new [] { "http://*:8080/" }, "Prefix to listen on such as http://127.0.0.0:8080/")
 }.WithConfigurableDefaults("echo");
 
 command.Handler = CommandHandler.Create<string[], CancellationToken>(EchoAsync);
@@ -44,7 +44,7 @@ static async Task EchoAsync(string[] prefix, CancellationToken cancellation)
     var http = new HttpListener();
     if (prefix.Length == 0)
     {
-        http.Prefixes.Add("http://*:80/");
+        http.Prefixes.Add("http://*:8080/");
     }
     else
     {

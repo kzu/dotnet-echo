@@ -1,8 +1,10 @@
 {
   "profiles": {
     "dotnet-echo": {
-      "commandName": "Project",
-      "commandLineArgs": ""
+      "commandName": "Project"
+    },
+    "WSL 2": {
+      "commandName": "WSL2"
     }
   }
 }
