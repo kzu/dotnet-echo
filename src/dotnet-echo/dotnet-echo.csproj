@@ -26,8 +26,4 @@
     <ProjectProperty Include="CI" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Program.Updates.cs" DependentUpon="Program.cs" />
-  </ItemGroup>
-
 </Project>
