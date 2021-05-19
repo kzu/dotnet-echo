@@ -112,7 +112,7 @@ static Task<IPackageSearchMetadata> GetUpdateAsync() => AnsiConsole.Status().Sta
     var source = new PackageSource("https://api.nuget.org/v3/index.json");
     var repo = new SourceRepository(source, providers);
     var resource = await repo.GetResourceAsync<PackageMetadataResource>();
-    var metadata = await resource.GetMetadataAsync("dotnet-echo", false, false, new SourceCacheContext(), NuGet.Common.NullLogger.Instance, CancellationToken.None);
+    var metadata = await resource.GetMetadataAsync(ThisAssembly.Project.PackageId, false, false, new SourceCacheContext(), NuGet.Common.NullLogger.Instance, CancellationToken.None);
 
     var update = metadata
         //.Select(x => x.Identity)
