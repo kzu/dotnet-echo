@@ -35,3 +35,7 @@ if there is a new version available.
 An example of the output during execution:
 
 ![](assets/img/echo.gif)
+
+And running on Ubuntu:
+
+![](assets/img/echo-ubuntu.gif)
