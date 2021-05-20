@@ -47,7 +47,7 @@ namespace DotNet
                     await http.Response.BodyWriter.WriteAsync(result.Buffer.ToArray());
 
             } while (!result.IsCanceled && !result.IsCompleted);
-            
+
             await http.Request.BodyReader.CompleteAsync();
             await http.Response.BodyWriter.CompleteAsync();
         }

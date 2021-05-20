@@ -39,7 +39,7 @@ var command = new RootCommand("A trivial program that echoes whatever is sent to
 }.WithConfigurableDefaults("echo");
 
 command.Handler = CommandHandler.Create<string[], CancellationToken>(
-    async (prefix, cancellation)  => await RunAsync(args, prefix, cancellation));
+    async (prefix, cancellation) => await RunAsync(args, prefix, cancellation));
 
 return await command.InvokeAsync(args);
 
