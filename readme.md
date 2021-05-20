@@ -18,7 +18,7 @@ Usage:
 ```
 > dotnet echo -?
 echo
-  A trivial program that echoes whatever is sent to it via HTTP.
+  A trivial program that echoes whatever is sent to it via HTTP or gRPC
 
 Usage:
   echo [options]
@@ -31,6 +31,48 @@ Options:
 
 The program will automatically check for updates once a day and recommend updating 
 if there is a new version available.
+
+The service supports gRPC too, with [echo.proto](src/dotnet-echo/echo.proto):
+
+```protobuf
+syntax = "proto3";
+
+service chamber {
+  rpc echo (message) returns (message);
+}
+
+message message {
+  string payload = 1;
+}
+```
+
+Since gRPC needs to use HTTP/2, it will use the defined `prefix` port + 1 (i.e. if you specify 
+`http://127.0.0.1:8080`, the gRPC endpoint will be available at `http://127.0.0.1:8081`).
+
+Example of a .NET client to run `echo` in the `chamber` service:
+
+```xml
+<Project>
+  ...
+  <ItemGroup>
+    <PackageReference Include="Grpc.Net.Client" Version="*" />
+    <PackageReference Include="Grpc.Tools" Version="*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="echo.proto" GrpcServices="Client" />
+  </ItemGroup>
+</Project>
+```
+
+```csharp
+var channel = GrpcChannel.ForAddress("http://localhost:8081");
+var service = new chamber.chamberClient(channel);
+
+var response = await service.echoAsync(new message { Payload = "Hello World" }, cancellationToken: cancellation);
+
+Console.WriteLine(response.Payload);
+```
+
 
 An example of the output during execution:
 

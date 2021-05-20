@@ -1,0 +1,9 @@
+﻿syntax = "proto3";
+
+service chamber {
+  rpc echo (message) returns (message);
+}
+
+message message {
+  string payload = 1;
+}

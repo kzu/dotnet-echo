@@ -3,18 +3,20 @@
   <PropertyGroup>
     <AssemblyName>echo</AssemblyName>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
+    <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
     <RootNamespace>DotNet</RootNamespace>
     <LangVersion>latest</LangVersion>
     <PackageId>dotnet-echo</PackageId>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>dotnet-echo</ToolCommandName>
-    <Description>A trivial program that echoes whatever is sent to it via HTTP.</Description>
+    <Nullable>annotations</Nullable>
+    <Description>A trivial program that echoes whatever is sent to it via HTTP or gRPC.</Description>
     <PackageProjectUrl>https://www.cazzulino.com/dotnet-echo</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="DotNetConfig.CommandLine" Version="1.0.3" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="ThisAssembly" Version="1.0.8" />
     <PackageReference Include="NuGet.Protocol" Version="5.9.1" />
@@ -25,6 +27,7 @@
   <ItemGroup>
     <ProjectProperty Include="CI" />
     <ProjectProperty Include="PackageId" />
+    <Protobuf Include="echo.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>

@@ -5,8 +5,12 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using DotNet;
 using DotNetConfig;
 using Humanizer;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Hosting;
 using NuGet.Configuration;
 using NuGet.Protocol.Core.Types;
 using NuGet.Versioning;
@@ -31,82 +35,44 @@ if (ThisAssembly.Project.CI.Equals("true", StringComparison.OrdinalIgnoreCase) &
 
 var command = new RootCommand("A trivial program that echoes whatever is sent to it via HTTP.")
 {
-    new Option<string[]>(new[] { "--prefix", "-p" }, () => new [] { "http://*:8080/" }, "Prefix to listen on such as http://127.0.0.0:8080/")
+    new Option<string[]>(new[] { "--prefix", "-p" }, () => new [] { "http://127.0.0.1:8080/" }, "Prefix to listen on such as http://127.0.0.0:8080/")
 }.WithConfigurableDefaults("echo");
 
-command.Handler = CommandHandler.Create<string[], CancellationToken>(EchoAsync);
+command.Handler = CommandHandler.Create<string[], CancellationToken>(async (prefix, cancellation) => await RunAsync(args, prefix, cancellation));
 
 return await command.InvokeAsync(args);
 
-
-static async Task EchoAsync(string[] prefix, CancellationToken cancellation)
+static async Task RunAsync(string[] args, string[] prefixes, CancellationToken cancellation)
 {
-    var http = new HttpListener();
-    if (prefix.Length == 0)
-    {
-        http.Prefixes.Add("http://*:8080/");
-    }
-    else
-    {
-        foreach (var uri in prefix)
-            http.Prefixes.Add(uri);
-    }
-
-    try
-    {
-        http.Start();
-        AnsiConsole.WriteLine("Registered prefixes to listen on:");
-        foreach (var p in prefix)
-            AnsiConsole.WriteLine("    " + p);
-    }
-    catch (HttpListenerException ex) when (ex.ErrorCode == 5 && Environment.OSVersion.Platform == PlatformID.Win32NT)
-    {
-        if (prefix.Length == 1)
+    await Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(builder =>
         {
-            AnsiConsole.MarkupLine($"[red]Failed to acquire permissions to listen on the specified prefix [/][white on red]{prefix[0]}[/]");
-            AnsiConsole.MarkupLine($"Either specify it as 'localhost' or '127.0.0.1' or run (as administrator): [yellow]netsh http add urlacl url={prefix[0]} user={Environment.UserName}[/]");
-        }
-        else
-        {
-            AnsiConsole.MarkupLine($"[red]Failed to acquire permissions to listen on the specified prefixes [/][yellow]{string.Join(", ", prefix)}[/]");
-            AnsiConsole.MarkupLine($"Either specify it as 'localhost' or '127.0.0.1' or run (as administrator):");
-            foreach (var p in prefix)
-                AnsiConsole.MarkupLine($"[yellow]netsh http add urlacl url={p} user={Environment.UserName}[/]");
-        }
-        return;
-    }
-
-    cancellation.Register(() => http.Stop());
-    await AnsiConsole.Status().StartAsync("Listening", async _ =>
-    {
-        while (!cancellation.IsCancellationRequested)
-        {
-            try
+            builder.ConfigureKestrel(opt =>
             {
-                // This call blocks until a request is made by the browser after auth, via the redirect
-                var context = await http.GetContextAsync();
-                AnsiConsole.MarkupLine($"[yellow]HTTP/{context.Request.ProtocolVersion} {context.Request.HttpMethod} [/][lime]{context.Request.RawUrl}[/]");
-                AnsiConsole.MarkupLine($"[grey]    Content-Length: {context.Request.ContentLength64}[/]");
-                AnsiConsole.MarkupLine($"[grey]    Content-Type: {context.Request.ContentType}[/]");
-                AnsiConsole.MarkupLine($"[grey]    User-Agent: {context.Request.UserAgent}[/]");
-
-                context.Response.ContentType = context.Request.ContentType;
-                context.Response.ContentLength64 = context.Request.ContentLength64;
-
-                var buffer = new byte[1024];
-                var read = 0;
-                while ((read = await context.Request.InputStream.ReadAsync(buffer, 0, buffer.Length, cancellation)) != 0)
-                    await context.Response.OutputStream.WriteAsync(buffer, 0, read, cancellation);
-
-                context.Response.Close();
-            }
-            catch (HttpListenerException e) when (e.ErrorCode == 995) { }
-            catch (ObjectDisposedException) { }
-        }
-    });
+                // Setup each enpoint to use HTTP/2 endpoint without TLS.
+                foreach (var prefix in prefixes)
+                {
+                    if (!Uri.TryCreate(prefix, UriKind.Absolute, out var uri))
+                    {
+                        AnsiConsole.MarkupLine($"[yellow]Invalid URI {prefix}. Skipping.[/]");
+                        continue;
+                    }
+                    if (!IPAddress.TryParse(uri.Host, out var ip))
+                    {
+                        AnsiConsole.MarkupLine($"[yellow]Invalid IPAddress {uri.Host}. Skipping.[/]");
+                        continue;
+                    }
+                    opt.Listen(ip, uri.Port, o => o.Protocols = HttpProtocols.Http1);
+                    opt.Listen(ip, uri.Port + 1, o => o.Protocols = HttpProtocols.Http2);
+                }
+            });
+            builder.UseStartup<Startup>();
+        })
+        .Build()
+        .RunAsync();
 }
 
-static Task<IPackageSearchMetadata> GetUpdateAsync() => AnsiConsole.Status().StartAsync("Checking for updates", async context =>
+static Task<IPackageSearchMetadata?> GetUpdateAsync() => AnsiConsole.Status().StartAsync("Checking for updates", async context =>
 {
     var providers = Repository.Provider.GetCoreV3();
     var source = new PackageSource("https://api.nuget.org/v3/index.json");
