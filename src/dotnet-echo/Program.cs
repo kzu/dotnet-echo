@@ -50,7 +50,6 @@ static async Task RunAsync(string[] args, string[] prefixes, CancellationToken c
         {
             builder.ConfigureKestrel(opt =>
             {
-                // Setup each enpoint to use HTTP/2 endpoint without TLS.
                 foreach (var prefix in prefixes)
                 {
                     if (!Uri.TryCreate(prefix, UriKind.Absolute, out var uri))
@@ -63,7 +62,14 @@ static async Task RunAsync(string[] args, string[] prefixes, CancellationToken c
                         AnsiConsole.MarkupLine($"[yellow]Invalid IPAddress {uri.Host}. Skipping.[/]");
                         continue;
                     }
-                    opt.Listen(ip, uri.Port, o => o.Protocols = HttpProtocols.Http1);
+                    opt.Listen(ip, uri.Port, o =>
+                    {
+                        o.Protocols = HttpProtocols.Http1;
+                        if (uri.Scheme == "https")
+                            o.UseHttps();
+                    });
+                    // For gRPC, we don't setup SSL. Also, we listen on a different port.
+                    // See https://docs.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0#unable-to-start-aspnet-core-grpc-app-on-macos
                     opt.Listen(ip, uri.Port + 1, o => o.Protocols = HttpProtocols.Http2);
                 }
             });
