@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 
@@ -14,8 +13,7 @@ namespace DotNet
     {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
-            => services.AddGrpc();
+        public void ConfigureServices(IServiceCollection services) => services.AddGrpc();
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -28,15 +26,7 @@ namespace DotNet
                 else
                     await EchoAsync(context);
             });
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGrpcService<EchoService>();
-            });
-            app.Use(next => context =>
-            {
-                AnsiConsole.MarkupLine($"[orange1]warn: unmatched route {context.Request.GetDisplayUrl()}[/]");
-                return next(context);
-            });
+            app.UseEndpoints(endpoints => endpoints.MapGrpcService<EchoService>());
         }
 
         static async Task EchoAsync(HttpContext http)

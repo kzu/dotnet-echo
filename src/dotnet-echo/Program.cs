@@ -38,7 +38,8 @@ var command = new RootCommand("A trivial program that echoes whatever is sent to
     new Option<string[]>(new[] { "--prefix", "-p" }, () => new [] { "http://127.0.0.1:8080/" }, "Prefix to listen on such as http://127.0.0.0:8080/")
 }.WithConfigurableDefaults("echo");
 
-command.Handler = CommandHandler.Create<string[], CancellationToken>(async (prefix, cancellation) => await RunAsync(args, prefix, cancellation));
+command.Handler = CommandHandler.Create<string[], CancellationToken>(
+    async (prefix, cancellation)  => await RunAsync(args, prefix, cancellation));
 
 return await command.InvokeAsync(args);
 
@@ -69,7 +70,7 @@ static async Task RunAsync(string[] args, string[] prefixes, CancellationToken c
             builder.UseStartup<Startup>();
         })
         .Build()
-        .RunAsync();
+        .RunAsync(cancellation);
 }
 
 static Task<IPackageSearchMetadata?> GetUpdateAsync() => AnsiConsole.Status().StartAsync("Checking for updates", async context =>
