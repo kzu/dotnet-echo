@@ -70,7 +70,12 @@ static async Task RunAsync(string[] args, string[] prefixes, CancellationToken c
                     });
                     // For gRPC, we don't setup SSL. Also, we listen on a different port.
                     // See https://docs.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0#unable-to-start-aspnet-core-grpc-app-on-macos
-                    opt.Listen(ip, uri.Port + 1, o => o.Protocols = HttpProtocols.Http2);
+                    opt.Listen(ip, uri.Port + 1, o =>
+                    {
+                        o.Protocols = HttpProtocols.Http2;
+                        if (uri.Scheme == "https")
+                            o.UseHttps();
+                    });
                 }
             });
             builder.UseStartup<Startup>();
