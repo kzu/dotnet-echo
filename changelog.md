@@ -1,5 +1,14 @@
 
 
+## [v0.6.0](https://github.com/kzu/dotnet-echo/tree/v0.6.0) (2021-05-22)
+
+[Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.5.0...v0.6.0)
+
+:bug: Fixed bugs:
+
+- If the original endpoint uses HTTPS, so should gRPC [\#7](https://github.com/kzu/dotnet-echo/issues/7)
+- Turn -p/--prefix into arguments, for simpler invocation [\#6](https://github.com/kzu/dotnet-echo/issues/6)
+
 ## [v0.5.0](https://github.com/kzu/dotnet-echo/tree/v0.5.0) (2021-05-20)
 
 [Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.4.2...v0.5.0)
