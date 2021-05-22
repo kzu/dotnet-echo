@@ -35,7 +35,7 @@ if (ThisAssembly.Project.CI.Equals("true", StringComparison.OrdinalIgnoreCase) &
 
 var command = new RootCommand("A trivial program that echoes whatever is sent to it via HTTP.")
 {
-    new Option<string[]>(new[] { "--prefix", "-p" }, () => new [] { "http://127.0.0.1:8080/" }, "Prefix to listen on such as http://127.0.0.0:8080/")
+    new Argument<string[]>("endpoint", () => new [] { "https://127.0.0.1:4242/" }, "Endpoint(s) to listen on such as https://127.0.0.0:8080/")
 }.WithConfigurableDefaults("echo");
 
 command.Handler = CommandHandler.Create<string[], CancellationToken>(

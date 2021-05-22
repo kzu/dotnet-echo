@@ -21,12 +21,13 @@ echo
   A trivial program that echoes whatever is sent to it via HTTP or gRPC
 
 Usage:
-  echo [options]
+  echo [options] [<endpoint>...]
+
+Arguments:
+  <endpoint>  Endpoint to listen on such as https://127.0.0.0:8080/ [default: https://127.0.0.1:4242/]
 
 Options:
-  -p, --prefix <prefix>  Prefix to listen on such as http://127.0.0.0:80/ [default: http://*:80/]
-  --version              Show version information
-  -?, -h, --help         Show help and usage information
+  -?, -h, --help  Show help and usage information
 ```
 
 The program will automatically check for updates once a day and recommend updating 
@@ -55,6 +56,7 @@ Example of a .NET client to run `echo` in the `chamber` service:
 <Project>
   ...
   <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="*" />
     <PackageReference Include="Grpc.Net.Client" Version="*" />
     <PackageReference Include="Grpc.Tools" Version="*" />
   </ItemGroup>
