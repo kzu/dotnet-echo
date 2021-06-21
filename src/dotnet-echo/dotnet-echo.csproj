@@ -19,7 +19,7 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="ThisAssembly" Version="1.0.8" />
-    <PackageReference Include="NuGet.Protocol" Version="5.9.1" />
+    <PackageReference Include="NuGet.Protocol" Version="5.10.0" />
     <PackageReference Include="Spectre.Console" Version="0.39.0" />
     <PackageReference Include="Humanizer.Core" Version="2.10.1" />
   </ItemGroup>
