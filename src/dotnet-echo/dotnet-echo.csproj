@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetConfig.CommandLine" Version="1.0.3" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.38.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="ThisAssembly" Version="1.0.8" />
     <PackageReference Include="NuGet.Protocol" Version="5.10.0" />
