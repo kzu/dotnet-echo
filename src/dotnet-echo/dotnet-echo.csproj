@@ -12,6 +12,7 @@
     <Nullable>annotations</Nullable>
     <Description>A trivial program that echoes whatever is sent to it via HTTP or gRPC.</Description>
     <PackageProjectUrl>https://www.cazzulino.com/dotnet-echo</PackageProjectUrl>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +29,7 @@
     <ProjectProperty Include="CI" />
     <ProjectProperty Include="PackageId" />
     <Protobuf Include="echo.proto" GrpcServices="Server" />
+    <None Include="..\..\readme.md" PackagePath="readme.md" Pack="true" />
   </ItemGroup>
 
 </Project>

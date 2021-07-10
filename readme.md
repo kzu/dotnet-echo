@@ -1,11 +1,7 @@
-![Icon](assets/img/icon-32.png) dotnet-echo
+![Icon](https://raw.githubusercontent.com/kzu/dotnet-echo/main/assets/img/icon-32.png) dotnet-echo
 ============
 
-[![Version](https://img.shields.io/nuget/v/dotnet-echo.svg?color=royalblue)](https://www.nuget.org/packages/dotnet-echo)
-[![Downloads](https://img.shields.io/nuget/dt/dotnet-echo.svg?color=darkmagenta)](https://www.nuget.org/packages/dotnet-echo)
-[![License](https://img.shields.io/github/license/kzu/dotnet-echo.svg?color=blue)](https://github.com/kzu/dotnet-echo/blob/main/LICENSE)
-[![CI Status](https://github.com/kzu/dotnet-file/workflows/build/badge.svg?branch=main)](https://github.com/kzu/dotnet-file/actions?query=branch%3Amain+workflow%3Abuild+)
-[![CI Version](https://img.shields.io/endpoint?url=https://shields.kzu.io/vpre/dotnet-echo/main&label=nuget.ci&color=brightgreen)](https://pkg.kzu.io/index.json)
+[![Version](https://img.shields.io/nuget/v/dotnet-echo.svg?color=royalblue)](https://www.nuget.org/packages/dotnet-echo) [![Downloads](https://img.shields.io/nuget/dt/dotnet-echo.svg?color=darkmagenta)](https://www.nuget.org/packages/dotnet-echo) [![License](https://img.shields.io/github/license/kzu/dotnet-echo.svg?color=blue)](https://github.com/kzu/dotnet-echo/blob/main/LICENSE) [![CI Status](https://github.com/kzu/dotnet-file/workflows/build/badge.svg?branch=main)](https://github.com/kzu/dotnet-file/actions?query=branch%3Amain+workflow%3Abuild+) [![CI Version](https://img.shields.io/endpoint?url=https://shields.kzu.io/vpre/dotnet-echo/main&label=nuget.ci&color=brightgreen)](https://pkg.kzu.io/index.json)
 
 Installing or updating (same command can be used for both):
 
