@@ -4,7 +4,7 @@
     <AssemblyName>echo</AssemblyName>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
-    <RootNamespace>DotNet</RootNamespace>
+    <RootNamespace>Devlooped</RootNamespace>
     <LangVersion>latest</LangVersion>
     <PackageId>dotnet-echo</PackageId>
     <PackAsTool>true</PackAsTool>

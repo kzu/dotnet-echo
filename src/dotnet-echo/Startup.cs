@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 
-namespace DotNet
+namespace Devlooped
 {
     public class Startup
     {
