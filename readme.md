@@ -74,8 +74,8 @@ Console.WriteLine(response.Payload);
 
 An example of the output during execution:
 
-![](assets/img/echo.gif)
+![](https://raw.githubusercontent.com/kzu/dotnet-echo/main/assets/img/echo.gif)
 
 And running on Ubuntu:
 
-![](assets/img/echo-ubuntu.gif)
+![](https://raw.githubusercontent.com/kzu/dotnet-echo/main/assets/img/echo-ubuntu.gif)
