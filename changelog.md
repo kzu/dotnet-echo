@@ -1,5 +1,13 @@
 
 
+## [v1.0.0](https://github.com/kzu/dotnet-echo/tree/v1.0.0) (2021-07-10)
+
+[Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.6.0...v1.0.0)
+
+:sparkles: Implemented enhancements:
+
+- Include readme in package for improved discovery [\#14](https://github.com/kzu/dotnet-echo/issues/14)
+
 ## [v0.6.0](https://github.com/kzu/dotnet-echo/tree/v0.6.0) (2021-05-22)
 
 [Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.5.0...v0.6.0)
