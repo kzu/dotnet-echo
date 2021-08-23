@@ -20,10 +20,11 @@ Usage:
   echo [options] [<port>...]
 
 Arguments:
-  <port>  Port(s) to listen on [default: 4242]
+  <port>  Port(s) to listen on. [default: 80 or 443 with --ssl] [default: ]
 
 Options:
-  --http2         Use HTTP/2 only. Prevents additional port for HTTP/2 to support gRPC.
+  -ssl            Use HTTPS with self-signed SSL certificate, persisted as dotnet-echo.pfx in the current directory.
+  -http2          Use HTTP/2 only. Prevents additional port for HTTP/2 to support gRPC.
   --version       Show version information
   -?, -h, --help  Show help and usage information
 ```
