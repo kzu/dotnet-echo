@@ -17,10 +17,10 @@ echo
   A trivial program that echoes whatever is sent to it via HTTP or gRPC
 
 Usage:
-  echo [options] [<endpoint>...]
+  echo [options] [<port>...]
 
 Arguments:
-  <endpoint>  Endpoint to listen on such as https://127.0.0.0:8080/ [default: https://127.0.0.1:4242/]
+  <port>  Port(s) to listen on
 
 Options:
   -?, -h, --help  Show help and usage information
@@ -43,8 +43,9 @@ message message {
 }
 ```
 
-Since gRPC needs to use HTTP/2, it will use the defined `prefix` port + 1 (i.e. if you specify 
-`http://127.0.0.1:8080`, the gRPC endpoint will be available at `http://127.0.0.1:8081`).
+Since gRPC [needs to use HTTP/2](https://docs.microsoft.com/en-US/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0#unable-to-start-aspnet-core-grpc-app-on-macos), 
+`dotnet-echo` will use the specified `port`(s) + 1 to listen HTTP/2-only traffic 
+(i.e. if you specify `8080`, the gRPC endpoint will be available at `http://localhost:8081`).
 
 Example of a .NET client to run `echo` in the `chamber` service:
 

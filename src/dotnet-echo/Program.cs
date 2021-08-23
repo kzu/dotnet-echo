@@ -3,6 +3,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Devlooped;
@@ -14,7 +15,6 @@ using Microsoft.Extensions.Hosting;
 using NuGet.Configuration;
 using NuGet.Protocol.Core.Types;
 using NuGet.Versioning;
-using Spectre.Console;
 
 #if !CI
 AnsiConsole.MarkupLine($"[lime]dotnet echo [/]{string.Join(' ', args)}");
@@ -35,47 +35,44 @@ if (ThisAssembly.Project.CI.Equals("true", StringComparison.OrdinalIgnoreCase) &
 
 var command = new RootCommand("A trivial program that echoes whatever is sent to it via HTTP.")
 {
-    new Argument<string[]>("endpoint", () => new [] { "https://127.0.0.1:4242/" }, "Endpoint(s) to listen on such as https://127.0.0.0:8080/")
+    new Argument<int[]>("port", () => new [] { 4242 }, "Port(s) to listen on")
 }.WithConfigurableDefaults("echo");
 
-command.Handler = CommandHandler.Create<string[], CancellationToken>(
-    async (prefix, cancellation) => await RunAsync(args, prefix, cancellation));
+command.Handler = CommandHandler.Create<int[], CancellationToken>(
+    async (port, cancellation) => await RunAsync(args, port, cancellation));
 
 return await command.InvokeAsync(args);
 
-static async Task RunAsync(string[] args, string[] prefixes, CancellationToken cancellation)
+static async Task RunAsync(string[] args, int[] ports, CancellationToken cancellation)
 {
+    AnsiConsole.MarkupLine($"[grey]Runtime: {RuntimeInformation.FrameworkDescription}[/]");
+
     await Host.CreateDefaultBuilder(args)
         .ConfigureWebHostDefaults(builder =>
         {
             builder.ConfigureKestrel(opt =>
             {
-                foreach (var prefix in prefixes)
+                foreach (var port in ports)
                 {
-                    if (!Uri.TryCreate(prefix, UriKind.Absolute, out var uri))
+                    opt.ListenLocalhost(port, o =>
                     {
-                        AnsiConsole.MarkupLine($"[yellow]Invalid URI {prefix}. Skipping.[/]");
-                        continue;
-                    }
-                    if (!IPAddress.TryParse(uri.Host, out var ip))
-                    {
-                        AnsiConsole.MarkupLine($"[yellow]Invalid IPAddress {uri.Host}. Skipping.[/]");
-                        continue;
-                    }
-                    opt.Listen(ip, uri.Port, o =>
-                    {
-                        o.Protocols = HttpProtocols.Http1;
-                        if (uri.Scheme == "https")
-                            o.UseHttps();
+#if NET6_0_OR_GREATER
+                        // NOTE: HTTP/3 work in progress for now. See https://github.com/dotnet/aspnetcore/projects/19#card-64856371
+                        o.Protocols = HttpProtocols.Http1AndHttp2;
+#elif NET5_0_OR_GREATER
+                        o.Protocols = HttpProtocols.Http1AndHttp2;
+#else
+                        o.Protocols = HttpProtocols.Http1AndHttp2;
+#endif
                     });
-                    // For gRPC, we don't setup SSL. Also, we listen on a different port.
-                    // See https://docs.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0#unable-to-start-aspnet-core-grpc-app-on-macos
-                    opt.Listen(ip, uri.Port + 1, o =>
-                    {
-                        o.Protocols = HttpProtocols.Http2;
-                        if (uri.Scheme == "https")
-                            o.UseHttps();
-                    });
+                    // Also register port+1 exclusively for grpc, which is required for non-TLS connection
+                    // See https://docs.microsoft.com/en-US/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0#unable-to-start-aspnet-core-grpc-app-on-macos
+                    // "When an HTTP/2 endpoint is configured without TLS, the endpoint's ListenOptions.Protocols must be set to
+                    // HttpProtocols.Http2. HttpProtocols.Http1AndHttp2 can't be used because TLS is required to negotiate HTTP/2.
+                    // Without TLS, all connections to the endpoint default to HTTP/1.1, and gRPC calls fail."
+                    // "HTTP/2 without TLS should only be used during app development. Production apps should always use transport security."
+                    opt.ListenLocalhost(port + 1, o => o.Protocols = HttpProtocols.Http2);
+                    AnsiConsole.MarkupLine($"[grey]gRPC HTTP/2 port: {port + 1}[/]");
                 }
             });
             builder.UseStartup<Startup>();
