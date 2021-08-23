@@ -20,9 +20,11 @@ Usage:
   echo [options] [<port>...]
 
 Arguments:
-  <port>  Port(s) to listen on
+  <port>  Port(s) to listen on [default: 4242]
 
 Options:
+  --http2         Use HTTP/2 only. Prevents additional port for HTTP/2 to support gRPC.
+  --version       Show version information
   -?, -h, --help  Show help and usage information
 ```
 
@@ -45,7 +47,8 @@ message message {
 
 Since gRPC [needs to use HTTP/2](https://docs.microsoft.com/en-US/aspnet/core/grpc/troubleshoot?view=aspnetcore-5.0#unable-to-start-aspnet-core-grpc-app-on-macos), 
 `dotnet-echo` will use the specified `port`(s) + 1 to listen HTTP/2-only traffic 
-(i.e. if you specify `8080`, the gRPC endpoint will be available at `http://localhost:8081`).
+(i.e. if you specify `8080`, the gRPC endpoint will be available at `http://localhost:8081`). 
+You can avoid the additional port by forcing HTTP/2-only with the `--http2` option.
 
 Example of a .NET client to run `echo` in the `chamber` service:
 
@@ -71,6 +74,50 @@ var response = await service.echoAsync(new message { Payload = "Hello World" }, 
 
 Console.WriteLine(response.Payload);
 ```
+
+Example of a .NET client using HTTP/2 only mode for a regular HTTP POST:
+
+```csharp
+var http = new HttpClient();
+
+var send = await http.SendAsync(new HttpRequestMessage(
+    HttpMethod.Post,
+    "http://localhost:8081")
+    {
+        Content = new StringContent("Hello HTTP"),
+        Version = new Version(2, 0),
+        VersionPolicy = HttpVersionPolicy.RequestVersionOrHigher,
+    });
+```
+
+Alternatively, you can force all HTTP requests to be send with the 
+required Version 2.0 property with a simple delegating HTTP handler like :
+
+```csharp
+class Http2Handler : DelegatingHandler
+{
+    public Http2Handler() : this(new HttpClientHandler()) { }
+    public Http2Handler(HttpMessageHandler inner) : base(inner) { }
+
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        request.Version = new Version(2, 0);
+        request.VersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
+        return base.SendAsync(request, cancellationToken);
+    }
+}
+```
+
+Which can be consumed like:
+
+```csharp
+var http = new HttpClient(new Http2Handler());
+
+var post = await http.PostAsync("http://localhost:8081", new StringContent("Hello HTTP"));
+```
+
+Since the handler new automatically sets the message properties, we can use the simpler 
+`Delete/Get/Post/Put` methods instead.
 
 
 An example of the output during execution:
