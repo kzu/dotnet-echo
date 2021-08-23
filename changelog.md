@@ -1,8 +1,20 @@
 
 
+## [v1.1.1](https://github.com/kzu/dotnet-echo/tree/v1.1.1) (2021-08-23)
+
+[Full Changelog](https://github.com/kzu/dotnet-echo/compare/v1.1.0...v1.1.1)
+
+:sparkles: Implemented enhancements:
+
+- Enable HTTP/2 only mode [\#20](https://github.com/kzu/dotnet-echo/issues/20)
+
 ## [v1.1.0](https://github.com/kzu/dotnet-echo/tree/v1.1.0) (2021-08-23)
 
 [Full Changelog](https://github.com/kzu/dotnet-echo/compare/v1.0.0...v1.1.0)
+
+:sparkles: Implemented enhancements:
+
+- Simplify arg to be just the port [\#19](https://github.com/kzu/dotnet-echo/issues/19)
 
 ## [v1.0.0](https://github.com/kzu/dotnet-echo/tree/v1.0.0) (2021-07-10)
 
@@ -40,10 +52,6 @@
 ## [v0.4.0](https://github.com/kzu/dotnet-echo/tree/v0.4.0) (2021-05-19)
 
 [Full Changelog](https://github.com/kzu/dotnet-echo/compare/v0.3.0...v0.4.0)
-
-:sparkles: Implemented enhancements:
-
-- Simplify arg to be just the port [\#19](https://github.com/kzu/dotnet-echo/issues/19)
 
 :bug: Fixed bugs:
 
