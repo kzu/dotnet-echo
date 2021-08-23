@@ -90,7 +90,7 @@ var send = await http.SendAsync(new HttpRequestMessage(
     });
 ```
 
-Alternatively, you can force all HTTP requests to be send with the 
+Alternatively, you can force all HTTP requests to be sent with the 
 required Version 2.0 property with a simple delegating HTTP handler like :
 
 ```csharp
@@ -116,7 +116,7 @@ var http = new HttpClient(new Http2Handler());
 var post = await http.PostAsync("http://localhost:8081", new StringContent("Hello HTTP"));
 ```
 
-Since the handler new automatically sets the message properties, we can use the simpler 
+Since the handler automatically sets the relevant message properties, we can use the simpler 
 `Delete/Get/Post/Put` methods instead.
 
 
