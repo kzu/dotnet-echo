@@ -1,8 +1,13 @@
-﻿using System.CommandLine;
+﻿using System;
+using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
+using System.Threading.Tasks;
 using Devlooped;
 using DotNetConfig;
 using Humanizer;
@@ -12,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using NuGet.Configuration;
 using NuGet.Protocol.Core.Types;
 using NuGet.Versioning;
+using Spectre.Console;
 
 #if !CI
 AnsiConsole.MarkupLine($"[lime]dotnet echo [/]{string.Join(' ', args)}");

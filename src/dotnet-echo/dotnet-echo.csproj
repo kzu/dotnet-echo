@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>echo</AssemblyName>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
     <RootNamespace>Devlooped</RootNamespace>
     <LangVersion>preview</LangVersion>
     <PackageId>dotnet-echo</PackageId>
@@ -30,15 +30,6 @@
     <ProjectProperty Include="PackageId" />
     <Protobuf Include="echo.proto" GrpcServices="Server" />
     <None Include="..\..\readme.md" PackagePath="readme.md" Pack="true" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Import Include="Spectre.Console" />
-    <Import Include="System" />
-    <Import Include="System.IO" />
-    <Import Include="System.Linq" />
-    <Import Include="System.Threading" />
-    <Import Include="System.Threading.Tasks" />
   </ItemGroup>
 
 </Project>
