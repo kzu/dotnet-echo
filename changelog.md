@@ -1,6 +1,6 @@
 
 
-## [v1.1.2](https://github.com/kzu/dotnet-echo/tree/v1.1.2) (2021-08-23)
+## [v1.1.2](https://github.com/kzu/dotnet-echo/tree/v1.1.2) (2021-08-24)
 
 [Full Changelog](https://github.com/kzu/dotnet-echo/compare/v1.1.1...v1.1.2)
 
