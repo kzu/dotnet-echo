@@ -66,6 +66,14 @@ static async Task RunAsync(string[] args, int[] ports, bool ssl, bool http2, Can
             {
                 foreach (var port in ports)
                 {
+                    // NOTE: this would require a firewall entry.
+                    opt.ListenAnyIP(port, o =>
+                    {
+                        o.Protocols = http;
+                        if (ssl)
+                            o.UseHttps(cert);
+                    });
+                    // Fallback to localhost only if no firewall entry is set.
                     opt.ListenLocalhost(port, o =>
                     {
                         o.Protocols = http;
@@ -80,6 +88,12 @@ static async Task RunAsync(string[] args, int[] ports, bool ssl, bool http2, Can
                         // HttpProtocols.Http2. HttpProtocols.Http1AndHttp2 can't be used because TLS is required to negotiate HTTP/2.
                         // Without TLS, all connections to the endpoint default to HTTP/1.1, and gRPC calls fail."
                         // "HTTP/2 without TLS should only be used during app development. Production apps should always use transport security."
+                        opt.ListenAnyIP(port + 1, o =>
+                        {
+                            o.Protocols = HttpProtocols.Http2;
+                            if (ssl)
+                                o.UseHttps(cert);
+                        });
                         opt.ListenLocalhost(port + 1, o =>
                         {
                             o.Protocols = HttpProtocols.Http2;
