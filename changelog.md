@@ -1,5 +1,13 @@
 
 
+## [v1.2.0](https://github.com/kzu/dotnet-echo/tree/v1.2.0) (2021-10-13)
+
+[Full Changelog](https://github.com/kzu/dotnet-echo/compare/v1.1.2...v1.2.0)
+
+:sparkles: Implemented enhancements:
+
+- Listen all IPs, not only localhost [\#25](https://github.com/kzu/dotnet-echo/issues/25)
+
 ## [v1.1.2](https://github.com/kzu/dotnet-echo/tree/v1.1.2) (2021-08-24)
 
 [Full Changelog](https://github.com/kzu/dotnet-echo/compare/v1.1.1...v1.1.2)
