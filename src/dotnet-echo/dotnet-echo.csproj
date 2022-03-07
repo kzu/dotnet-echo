@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetConfig.CommandLine" Version="1.0.3" />
+    <PackageReference Include="DotNetConfig.CommandLine" Version="1.0.6" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" />
     <PackageReference Include="ThisAssembly" Version="1.0.9" />
