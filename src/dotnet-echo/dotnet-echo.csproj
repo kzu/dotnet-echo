@@ -22,7 +22,7 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" />
     <PackageReference Include="ThisAssembly" Version="1.0.9" />
     <PackageReference Include="NuGet.Protocol" Version="6.0.0" />
-    <PackageReference Include="Spectre.Console" Version="0.42.0" />
+    <PackageReference Include="Spectre.Console" Version="0.44.0" />
     <PackageReference Include="Humanizer.Core" Version="2.13.14" />
   </ItemGroup>
 
