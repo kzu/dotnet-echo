@@ -46,8 +46,8 @@
 	weak
 [file ".github/dependabot.yml"]
 	url = https://github.com/devlooped/oss/blob/main/.github/dependabot.yml
-	sha = 0683ee777d7d878d4bf013d7deea352685135a05
-	etag = 2fc8a0d2b47091b058ae3e1f68333492044b49a684621f4939a0bce5bff869d5
+	sha = 4f070a477b4162a280f02722ae666376ae4fcc71
+	etag = 35f2134fff3b0235ff8dac8618a76198c8ef533ad2f29628bbb435cd1134d638
 	weak
 [file ".github/workflows/build.yml"]
 	url = https://github.com/devlooped/oss/blob/main/.github/workflows/build.yml
@@ -141,4 +141,9 @@
 	url = https://github.com/devlooped/oss/blob/main/src/nuget.config
 	sha = 1537aa96d3c999642d678e1143b09950f235b977
 	etag = 754274e682c3523e3ac0a142ada64abff20551dc73bf16edfbd66415dcf87fd0
+	weak
+[file ".github/workflows/combine-prs.yml"]
+	url = https://github.com/devlooped/oss/blob/main/.github/workflows/combine-prs.yml
+	sha = 5d2b0731d91f64382395c799cb2cfd13d05e9392
+	etag = 220c4bef10cd5f077fa48d94aba2568feb19f59024de4c52e7358d36cc7071c8
 	weak
