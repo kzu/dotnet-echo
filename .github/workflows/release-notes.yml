@@ -20,16 +20,21 @@ jobs:
       - name: 🏷 since
         run: echo "SINCE_TAG=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))" >> $GITHUB_ENV
 
+      - name: ⚙ ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.3
+
       - name: ⚙ changelog
         if: env.SINCE_TAG != ''
         run: |
-          sudo gem install github_changelog_generator 
+          gem install github_changelog_generator 
           github_changelog_generator --since-tag ${{ env.SINCE_TAG }} --user ${GITHUB_REPOSITORY%/*} --project ${GITHUB_REPOSITORY##*/} --token ${{ secrets.GITHUB_TOKEN }} --o changelog.md --config-file .github/.github_changelog_generator
 
       - name: ⚙ changelog
         if: env.SINCE_TAG == ''
         run: |
-          sudo gem install github_changelog_generator 
+          gem install github_changelog_generator 
           github_changelog_generator --user ${GITHUB_REPOSITORY%/*} --project ${GITHUB_REPOSITORY##*/} --token ${{ secrets.GITHUB_TOKEN }} --o changelog.md --config-file .github/.github_changelog_generator
 
       - name: 🖉 release
@@ -37,13 +42,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          $id = iwr "$env:GITHUB_API_URL/repos/$env:GITHUB_REPOSITORY/releases/tags/$env:CURRENT_TAG" | 
+          $headers = @{ 'Accept'='application/vnd.github.v3+json;charset=utf-8'; 'Authorization' = "bearer $env:GITHUB_TOKEN" }
+          $id = iwr "$env:GITHUB_API_URL/repos/$env:GITHUB_REPOSITORY/releases/tags/$env:CURRENT_TAG" -Headers $headers | 
             select -ExpandProperty Content | 
             ConvertFrom-Json | 
             select -ExpandProperty id
             
           $notes = (Get-Content .\changelog.md | where { !($_ -like '\*') } | %{ $_.replace('\', '\\').replace('"', "'").replace('undefined', 'un-defined') }) -join '\n'
-          $headers = @{ 'Accept'='application/vnd.github.v3+json;charset=utf-8'; 'Authorization' = "bearer $env:GITHUB_TOKEN" }
           $body = '{ "body":"' + $notes + '" }'
 
           # ensure we can convert to json
